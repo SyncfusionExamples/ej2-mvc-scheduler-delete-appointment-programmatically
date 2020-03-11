@@ -1,0 +1,127 @@
+﻿@using Syncfusion.EJ2.Schedule
+
+@(Html.EJS().Schedule("schedule")
+        .Width("100%")
+        .Height("650px")
+        .EventRendered("onEventRendered")
+        .Hover("onHover")
+        .PopupOpen("onPopupOpen")
+        .EventSettings(
+            new ScheduleEventSettings {
+                DataSource = ViewBag.datasource,
+                Template = ViewBag.template
+            }
+        )
+        .SelectedDate(new DateTime(2018, 2, 15))
+        .Render()
+)
+
+<script type="text/javascript">
+    var flag = false;
+    var ele = "";
+    var instance = new ej.base.Internationalization();
+    function getTimeString(value) {
+        return instance.formatDate(value, { skeleton: 'hm' });
+    }
+
+    function onEventRendered(args) {
+        // Bind the click event to 'x' in all appointments
+        args.element.querySelector(".custom").addEventListener("click", function (e) {
+            flag = true;
+            var obj = document.querySelector('.e-schedule').ej2_instances[0];
+            // Delete the event when clicking the 'X'
+            obj.deleteEvent(obj.getEventDetails(e.currentTarget.offsetParent));
+        });
+    }
+    function onHover(args) {
+        // Show the 'X' icon on appointment hover
+        if (args.element.classList.contains("e-appointment")) {
+            ele = args.element.querySelector(".custom");
+            args.element.querySelector(".custom").style.display = "block";
+        } else if (!ej.base.isNullOrUndefined(document.querySelector(".custom"))) {
+            var ele = document.querySelectorAll(".custom");
+            ele.forEach(element => (element.style.display = "none"));
+        }
+    }
+    function onPopupOpen(args) {
+        if (flag) {
+            // To prevent the default click action on 'x' click.
+            args.cancel = flag;
+            flag = false;
+        }
+    }
+</script>
+
+<style>
+    .custom {
+        display: none;
+        float: right;
+        font-weight: 600;
+        color: black;
+        padding-right: 4px;
+        font-size: 15px;
+    }
+
+    .e-schedule .e-vertical-view .e-content-wrap .e-appointment .e-appointment-details {
+        padding: 0;
+        height: 100%;
+    }
+
+    .e-schedule .template-wrap {
+        height: 100%;
+        white-space: normal;
+    }
+
+        .e-schedule .template-wrap .image {
+            padding: 8px 0 4px;
+        }
+
+            .e-schedule .template-wrap .image img {
+                height: 100%;
+                width: 100%;
+                padding: 10px 25%;
+            }
+
+        .e-schedule .template-wrap .subject {
+            font-size: 15px;
+            padding: 4px 4px 4px;
+            height: 25px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .e-schedule .template-wrap .time {
+            height: 50px;
+        }
+
+        .e-schedule .template-wrap .time,
+        .e-schedule .template-wrap .description {
+            font-size: 12px;
+            padding: 4px 6px 4px;
+            overflow: hidden;
+        }
+
+        .e-schedule .template-wrap .footer {
+            position: absolute;
+            bottom: 0;
+            height: 50px;
+            width: 100%;
+        }
+
+    .e-schedule .e-timeline-view .e-appointment .e-appointment-details {
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    .e-schedule .e-timeline-view .template-wrap {
+        width: 100%;
+    }
+
+        .e-schedule .e-timeline-view .template-wrap .subject {
+            font-size: 16px;
+            height: 36px;
+            text-align: center;
+        }
+</style>
