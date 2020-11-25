@@ -1,11 +1,13 @@
-# Vue-Js and .Net Core
+# Syncfusion Scheduler in MVC
 
-Getting started with Vue Js and .NET Core 3
+A quick start project that helps you to delete a appointment directly without using Appointment window or Quick window.
 
-## Steps to run
+## How to run this application?
+To run this application, you need to first clone the `ej2-mvc-scheduler-delete-appointment-programmatically` repository and then navigate to its appropriate path where it has been located in your system.
+
+To do so, open the command prompt and run the below commands one after the other.
 
 ```
-git clone https://github.com/SyncfusionSamples/ej2-core-scheduler-with-vue core-with-vue
-cd core-with-vue
+git clone https://github.com/SyncfusionExamples/ej2-mvc-scheduler-delete-appointment-programmatically ej2-scheduler
 ```
 Compile and run the project.
