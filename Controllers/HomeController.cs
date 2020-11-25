@@ -12,7 +12,6 @@ namespace mvc_sample.Controllers
         public ActionResult Index()
         {
             ViewBag.datasource = GetScheduleData();
-            ViewBag.template = "<div class='template-wrap' style='background:${SecondaryColor}'><div class='custom'> X </div><div class='subject'>${Subject}</div><div class='time'>Time: ${getTimeString(data.StartTime)} - ${getTimeString(data.EndTime)}</div></div>";
             return View();
         }
         public List<AppointmentData> GetScheduleData()

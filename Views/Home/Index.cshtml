@@ -9,12 +9,20 @@
         .EventSettings(
             new ScheduleEventSettings {
                 DataSource = ViewBag.datasource,
-                Template = ViewBag.template
+                Template = "#eventTemplate"
             }
         )
         .SelectedDate(new DateTime(2018, 2, 15))
         .Render()
 )
+
+<script id="eventTemplate" type="text/x-template">
+    <div class='template-wrap' style='background:${SecondaryColor}'>
+        <div class='custom e-icons x-icon'></div>
+        <div class='subject'>${Subject}</div>
+        <div class='time'>Time: ${getTimeString(data.StartTime)} - ${getTimeString(data.EndTime)}</div>
+    </div>
+</script>
 
 <script type="text/javascript">
     var flag = false;
@@ -60,6 +68,12 @@
         color: black;
         padding-right: 4px;
         font-size: 15px;
+    }
+
+    .x-icon:before {
+        content: '\e7e9';
+        font-size: 25px;
+        color: white;
     }
 
     .e-schedule .e-vertical-view .e-content-wrap .e-appointment .e-appointment-details {
